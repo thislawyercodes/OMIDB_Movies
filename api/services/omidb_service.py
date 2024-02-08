@@ -21,6 +21,7 @@ class FetchOMDBMovies:
         params['apikey'] = self.api_key
 
         url = f"{self.omdb_base_url}?" + "&".join([f"{key}={value}" for key, value in params.items()])
+        print("url,ur;",url)
 
         response = requests.get(url)
         print("response,response")

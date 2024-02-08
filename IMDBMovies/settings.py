@@ -32,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)gy$z1*upsv@11u%hd)1^f$rlgodvo+@l2pkx+!j(5u(s9fc9p'
 
-ALLOWED_HOSTS = env.get_value(var='ALLOWED_HOSTS', cast=list, default=['127.0.0.1'])
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -99,6 +99,7 @@ DATABASES = {
 }
 
 
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
@@ -147,33 +148,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static/")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-if MODE == 'DEV':
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    STATIC_URL = '/static/'
-    
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 
-    DEBUG = True
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-elif MODE == 'SANDBOX' or MODE == 'CI':
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    STATIC_URL = env.get_value('STATIC_URL_SANDBOX')
-
-    DEBUG = True
-
-elif MODE == 'PROD':
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    STATIC_URL = env.get_value('STATIC_URL_PROD')
-
-    DEBUG = False
-
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    STATIC_URL = '/static/'
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -222,7 +203,7 @@ DRF_YASG_EXCLUDE_VIEWS = []
 
 
 
-# CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8000')
-# CSRF_TRUSTED_ORIGINS =['http://127.0.0.1:8000']
+CORS_ORIGIN_WHITELIST = ("http://localhost:4200",)
+CSRF_TRUSTED_ORIGINS =["http://localhost:4200",]
 
   
